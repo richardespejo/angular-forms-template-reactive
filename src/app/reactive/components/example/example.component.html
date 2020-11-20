@@ -1,0 +1,178 @@
+<div class="container">
+    <div class="row">
+        <div class="col text-center">
+            <h1>Formulario Reactivo</h1>
+        </div>
+    </div>
+    <div>
+        <hr>
+        <form autocomplete="off" [formGroup]="formReactive" (ngSubmit)="guardar()">
+        <div>
+            <div class="form-group row">
+            <label class="col-2 col-form-label">Nombre</label>
+            <div class="col">
+
+                <input class="form-control"
+                    type="text"
+                    placeholder="Nombre"
+                    formControlName="nombre"
+                    [class.is-invalid]="nombre">
+                    <small *ngIf="nombre" class="text-danger">
+                        Ingrese el menos 5 caracteres
+                    </small>
+            </div>
+            </div>
+
+            <div class="form-group row">
+            <label class="col-2 col-form-label">Apellido</label>
+            <div class="col">
+
+                <input class="form-control"
+                    type="text"
+                    placeholder="Apellido"
+                    formControlName="apellido"
+                    [class.is-invalid]="apellido">
+                    <small *ngIf="apellido" class="text-danger">
+                        Ingrese el menos 5 caracteres
+                    </small>
+            </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-2 col-form-label">Correo</label>
+            <div class="col">
+
+            <input class="form-control"
+                    type="email"
+                    placeholder="Correo electrónico"
+                    formControlName="correo"
+                    [class.is-invalid]="correo">
+                    <small *ngIf="correo" class="text-danger">
+                        Ingrese un correo valido
+                    </small>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-2 col-form-label">Usuario</label>
+            <div class="col">
+
+            <input class="form-control"
+                    type="email"
+                    placeholder="Nombre Usuario"
+                    formControlName="usuario"
+                    [class.is-invalid]="usuario">
+                    <small *ngIf="usuario" class="text-danger">
+                        Este usuario ya fue tomado
+                    </small>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-2 col-form-label">Clave</label>
+            <div class="col">
+
+            <input class="form-control"
+                    type="password"
+                    placeholder="Clave"
+                    formControlName="clave1"
+                    [class.is-invalid]="clave1"
+                    >
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-2 col-form-label">Repetir clave</label>
+            <div class="col">
+
+            <input class="form-control"
+                    type="password"
+                    placeholder="Repetir Clave"
+                    formControlName="clave2"
+                    [class.is-invalid]="clave2"
+                    >
+            </div>
+        </div>
+
+        <div class="form-group row" formGroupName="direccion">
+            <label class="col-2 col-form-label">Dirección</label>
+            <div class="col">
+                <input class="form-control" 
+                        type="text"
+                        placeholder="Distrito"
+                        formControlName="distrito"
+                        [class.is-invalid]="distrito">
+                        <small *ngIf="distrito" class="text-danger">
+                            El campo es requerido
+                        </small>
+            </div>
+            <div class="col">
+                <input class="form-control" 
+                        type="text"
+                        placeholder="Ciudad"
+                        formControlName="ciudad"
+                        [class.is-invalid]="ciudad">
+                        <small *ngIf="ciudad" class="text-danger">
+                            El campo es requerido
+                        </small>
+            </div>
+
+        </div>
+        
+        <div class="row">
+            <div class="col">
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th>Pasatiempos</th>
+                            <th>Accion</th>
+                        </tr>
+                    </thead>
+                    <tbody formArrayName="pasatiempos">
+                        <tr *ngFor="let control of pasatiempos.controls ; let i = index">
+                            <td>{{ i+1 }}</td>
+                            <td>
+                                <input  class="form-control" 
+                                        type="text"
+                                        [formControlName]="i" >
+                            </td>
+                            <td>
+                                <button class="btn btn-danger" (click)="borrarPasatiempo(i)">Eliminar</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+            
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <button class="btn btn-secondary mt-2 mb-2 btn-block" type="button" (click)="agregarPasatiempo()">Agregar</button>
+
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="input-group col">
+            <button type="submit" class="btn btn-primary btn-block">
+                Guardar
+            </button>
+            </div>
+        </div>
+
+        </form>
+    </div>
+</div>
+
+<hr>
+
+<pre>
+    Estado del formulario : {{ formReactive.valid }}
+    <br>
+    Status : {{formReactive.status}}
+
+</pre>
+
+<pre>
+    {{ formReactive.value | json }}
+</pre>
